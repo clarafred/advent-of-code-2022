@@ -1,65 +1,31 @@
 ﻿namespace app
 {
-    internal class Program
+    class Program
     {
         static void Main(string[] args)
         {
             const string PATH = "./../input.txt";
 
-            var lineCounter = 1;
-
-            foreach (string line in System.IO.File.ReadLines(@PATH))
+            using (StreamReader sr = new StreamReader(PATH))
             {
-                if (line == string.Empty)
-                    lineCounter++;
-            }
+                var elfs = new List<int>();
 
-            var caloriesArr = new int[lineCounter];
-
-            var elfCounter = 0;
-            var caloriesAmount = 0;
-
-            using (StreamReader reader = new StreamReader(PATH))
-            {
-                while (!reader.EndOfStream)
+                sr.ReadToEnd().Split("\n\n").ToList().ForEach(i =>
                 {
-                    string? line = reader.ReadLine();
+                    var sum = 0;
 
-                    if (line == string.Empty)
+                    i.Split("\n").ToList().ForEach(j =>
                     {
-                        elfCounter++;
-                        caloriesAmount = 0;
-                    }
-                    else
-                    {
-                        int number = int.Parse(line);
-                        caloriesAmount += number;
-                        caloriesArr[elfCounter] = caloriesAmount;
-                    }
-                }
-            }
+                        sum += int.Parse(j);
+                    });
 
-            var topCaloriesArr = new int[3];
+                    elfs.Add(sum);
+                });
 
-            for (int i = 0; i < caloriesArr.Length; i++)
-            {
-                if (caloriesArr[i] > topCaloriesArr[0])
-                {
-                    topCaloriesArr[2] = topCaloriesArr[1];
-                    topCaloriesArr[1] = topCaloriesArr[0];
-                    topCaloriesArr[0] = caloriesArr[i];
-                }
-                else if (caloriesArr[i] > topCaloriesArr[1] && caloriesArr[i] != topCaloriesArr[0])
-                {
-                    topCaloriesArr[2] = topCaloriesArr[1];
-                    topCaloriesArr[1] = caloriesArr[i];
-                }
-                else if (caloriesArr[i] > topCaloriesArr[2] && caloriesArr[i] != topCaloriesArr[1])
-                {
-                    topCaloriesArr[2] = caloriesArr[i];
-                }
+                var top = elfs.OrderByDescending(e => e).ToArray();
+
+                Console.WriteLine(top[0] + top[1] + top[2]);
             }
-            Console.WriteLine(topCaloriesArr[0] + topCaloriesArr[1] + topCaloriesArr[2]);
         }
     }
 }
