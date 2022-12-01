@@ -30,30 +30,36 @@
                         elfCounter++;
                         caloriesAmount = 0;
                     }
-                    if (line != string.Empty)
+                    else
                     {
                         int number = int.Parse(line);
                         caloriesAmount += number;
                         caloriesArr[elfCounter] = caloriesAmount;
-
                     }
                 }
             }
 
-            // First star
-            int elfWithMostCalories = 0;
-            int mostCalories = 0;
+            var topCaloriesArr = new int[3];
 
             for (int i = 0; i < caloriesArr.Length; i++)
             {
-                if (caloriesArr[i] > mostCalories)
+                if (caloriesArr[i] > topCaloriesArr[0])
                 {
-                    elfWithMostCalories = i;
-                    mostCalories = caloriesArr[i];
+                    topCaloriesArr[2] = topCaloriesArr[1];
+                    topCaloriesArr[1] = topCaloriesArr[0];
+                    topCaloriesArr[0] = caloriesArr[i];
+                }
+                else if (caloriesArr[i] > topCaloriesArr[1] && caloriesArr[i] != topCaloriesArr[0])
+                {
+                    topCaloriesArr[2] = topCaloriesArr[1];
+                    topCaloriesArr[1] = caloriesArr[i];
+                }
+                else if (caloriesArr[i] > topCaloriesArr[2] && caloriesArr[i] != topCaloriesArr[1])
+                {
+                    topCaloriesArr[2] = caloriesArr[i];
                 }
             }
-
-            Console.WriteLine($"Calories: {caloriesArr[elfWithMostCalories]}");            
+            Console.WriteLine(topCaloriesArr[0] + topCaloriesArr[1] + topCaloriesArr[2]);
         }
     }
 }
