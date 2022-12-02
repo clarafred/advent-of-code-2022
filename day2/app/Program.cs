@@ -6,88 +6,82 @@
 
         var score = 0;
 
+        var rock = "A";
+        var paper = "B";
+        var scissors = "C";
+
+        var lose = "X";
+        var draw = "Y";
+        var win = "Z";
+
+        var rockScore = 1;
+        var paperScore = 2;
+        var scissorsScore = 3;
+
+        var lostPoint = 0;
+        var drawPoint = 3;
+        var winPoint = 6;
+        
         foreach (string line in File.ReadLines(@PATH))
         {
-            var hand = line.Split(" ");
+            var round = line.Split(" ");
 
-            var apponentsHand = hand[0];
-            var myHand = hand[1];
+            var apponentsHand = round[0];
+            var end = round[1];
 
-            var rockA = "A";
-            var rockX = "X";
-            var paperB = "B";
-            var paperY = "Y";
-            var scissorsC = "C";
-            var scissorsZ = "Z";
 
-            var rockScore = 1;
-            var paperScore = 2;
-            var scissorsScore = 3;
-
-            var lost = 0;
-            var draw = 3;
-            var win = 6;
-
-            if (myHand == rockX)
+            if (end == lose)
             {
-                score += rockScore;
-            }
-            else if (myHand == paperY)
-            {
-                score += paperScore;
-            }
-            else if (myHand == scissorsZ)
-            {
-                score += scissorsScore;
-            }
+                score += lostPoint;
 
-            if (apponentsHand == rockA)
-            {
-                if (myHand == rockX)
+                if (apponentsHand == rock)
                 {
-                    score += draw;
+                    score += scissorsScore;
                 }
-                else if (myHand == paperY)
+                else if (apponentsHand == paper)
                 {
-                    score += win;
+                    score += rockScore;
                 }
-                else if (myHand == scissorsZ)
+                else if (apponentsHand == scissors)
                 {
-                    score += lost;
+                    score += paperScore;
                 }
             }
-            else if (apponentsHand == paperB)
+            else if (end == draw)
             {
-                if (myHand == rockX)
+                score += drawPoint;
+
+                if (apponentsHand == rock)
                 {
-                    score += lost;
+                    score += rockScore;
                 }
-                else if (myHand == paperY)
+                else if (apponentsHand == paper)
                 {
-                    score += draw;
+                    score += paperScore;
                 }
-                else if (myHand == scissorsZ)
+                else if (apponentsHand == scissors)
                 {
-                    score += win;
+                    score += scissorsScore;
                 }
             }
-            else if (apponentsHand == scissorsC)
+            else if (end == win)
             {
-                if (myHand == rockX)
+                score += winPoint;
+
+                if (apponentsHand == rock)
                 {
-                    score += win;
+                    score += paperScore;
                 }
-                else if (myHand == paperY)
+                else if (apponentsHand == paper)
                 {
-                    score += lost;
+                    score += scissorsScore;
                 }
-                else if (myHand == scissorsZ)
+                else if (apponentsHand == scissors)
                 {
-                    score += draw;
+                    score += rockScore;
                 }
             }
         }
-
         Console.WriteLine($"{score}");
     }
 }
