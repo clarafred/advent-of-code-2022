@@ -8,7 +8,7 @@
 
         foreach (string line in File.ReadLines(@PATH)) { lines.Add(line); }
 
-        Console.WriteLine(star1(lines));
+        Console.WriteLine(star2(lines));
     }
     static int star1(List<string> lines)
     {
@@ -33,6 +33,38 @@
 
             sum += result;
         });
+
+        return sum;
+    }
+
+    static int star2(List<string> lines)
+    {
+        var sum = 0;
+
+        for (int i = 0; i < lines.Count; i += 3)
+        {
+            var result = 0;
+            
+            var first = lines[i];
+            var second = lines[i + 1];
+            var third = lines[i + 2];
+
+            for (int x = 0; x < first.Length; x++)
+            {
+                if (second.Contains(first[x]))
+                {
+                    if (third.Contains(first[x]))
+                    {
+                        result = (char.IsUpper(first[x])) ? (byte)first[x] - 38
+                        : (char.IsLower(first[x])) ? (byte)first[x] - 96
+                        : 0;
+                        
+                        break;
+                    }
+                }
+            }
+            sum += result;
+        }
 
         return sum;
     }
