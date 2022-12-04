@@ -8,7 +8,11 @@
 
         foreach (string line in File.ReadLines(@PATH)) { lines.Add(line); }
 
-        Console.WriteLine(star2(lines));
+        var sum1 = star1(lines);
+        var sum2 = star2(lines);
+        
+        Console.WriteLine(sum1);
+        Console.WriteLine(sum2);
     }
     static int star1(List<string> lines)
     {
