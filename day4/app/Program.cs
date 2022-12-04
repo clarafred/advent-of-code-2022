@@ -20,59 +20,42 @@
 
     static int star1(List<string> lines)
     {
-        var result = 0;
+        var sum = 0;
 
-        for (int i = 0; i < lines.Count; i++)
-        {
-            var splitted = lines[i].Split(",");
+        lines.ForEach(e => {
+            var x = e.Split(",");
+            var y = x[0].Split("-");
+            var z = x[1].Split("-");
 
-            var firstPair = splitted[0];
-            var secondPair = splitted[1];
+            var a = int.Parse(y[0]);
+            var b = int.Parse(y[1]);
+            var c = int.Parse(z[0]);
+            var d = int.Parse(z[1]);
 
-            var splitFirstPair = firstPair.Split("-");
-            var splitSecondPair = secondPair.Split("-");
+            if ((a <= c && b >= d) || (a >= c && b <= d))
+                sum++;
+        });
 
-            var firstFirst = int.Parse(splitFirstPair[0]);
-            var firstLast = int.Parse(splitFirstPair[1]);
-
-            var secondFirst = int.Parse(splitSecondPair[0]);
-            var secondLast = int.Parse(splitSecondPair[1]);
-
-            if ((firstFirst <= secondFirst && firstLast >= secondLast) || (firstFirst >= secondFirst && firstLast <= secondLast))
-            {
-                result += 1;
-            }
-        }
-        return result;
+        return sum;
     }
 
     static int star2(List<string> lines)
     {
         var sum = 0;
 
-        for (int i = 0; i < lines.Count; i++)
-        {
-            var splitted = lines[i].Split(",");
+        lines.ForEach(e => {
+            var x = e.Split(",");
+            var y = x[0].Split("-");
+            var z = x[1].Split("-");
 
-            var firstPair = splitted[0];
-            var secondPair = splitted[1];
+            var a = int.Parse(y[0]);
+            var b = int.Parse(y[1]);
+            var c = int.Parse(z[0]);
+            var d = int.Parse(z[1]);
 
-            var splitFirstPair = firstPair.Split("-");
-            var splitSecondPair = secondPair.Split("-");
-
-            var firstFirst = int.Parse(splitFirstPair[0]);
-            var firstLast = int.Parse(splitFirstPair[1]);
-
-            var secondFirst = int.Parse(splitSecondPair[0]);
-            var secondLast = int.Parse(splitSecondPair[1]);
-
-            var result = ((firstFirst <= secondFirst && firstLast >= secondLast) || (firstFirst >= secondFirst && firstLast <= secondLast)) ? 1
-            : (firstLast >= secondFirst && firstFirst < secondFirst) ? 1
-            : (firstFirst <= secondLast && firstLast > secondLast) ? 1
-            : 0;
-
-            sum += result;
-        }
+            if ((a <= c && b >= d) || (a >= c && b <= d) || (b >= c && a < c) || (a <= d && b > d))
+                sum ++;
+        });
 
         return sum;
     }
